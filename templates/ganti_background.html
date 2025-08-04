@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ganti Background Login</title>
+</head>
+<body>
+    <h2>Ganti Background Login</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="background" accept="image/*" required><br><br>
+        <button type="submit">Upload</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul style="color: green;">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>

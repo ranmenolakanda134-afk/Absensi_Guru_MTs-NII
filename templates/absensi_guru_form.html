@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Absensi - Guru</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .card {
+            margin-top: 60px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #999;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <span class="navbar-brand">Absensi Guru</span>
+        <div class="d-flex">
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-light">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Konten Form -->
+<div class="container">
+    <div class="card p-4">
+        <h3 class="mb-4 text-center">Form Absensi Hari Ini</h3>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info text-center">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+
+        <p class="text-muted text-center mb-4">Tanggal: {{ date.strftime('%d %B %Y') }}</p>
+
+        <form method="POST" onsubmit="this.querySelector('button[type=submit]').disabled = true;">
+            <div class="mb-3">
+                <label for="jam_masuk" class="form-label">Jam Masuk</label>
+                <input type="time" class="form-control" name="jam_masuk" required>
+            </div>
+            <div class="mb-3">
+                <label for="jam_selesai" class="form-label">Jam Selesai</label>
+                <input type="time" class="form-control" name="jam_selesai" required>
+            </div>
+            <div class="mb-3">
+                <label for="keterangan" class="form-label">Keterangan</label>
+                <select class="form-select" name="keterangan" required>
+                    <option value="Hadir">Hadir</option>
+                    <option value="Izin">Izin</option>
+                    <option value="Sakit">Sakit</option>
+                    <option value="Alpha">Alpha</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Kirim Absensi</button>
+        </form>
+    </div>
+    <a href="{{ url_for('ganti_password') }}" class="btn btn-outline-warning w-100 mt-2">Ganti Password</a>
+
+    <footer>© {{ date.year }} Absensi Guru</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
